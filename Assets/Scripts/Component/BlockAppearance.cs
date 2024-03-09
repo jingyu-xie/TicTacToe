@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class BlockAppearance : MonoBehaviour
 {
-    private Block block;
-
     [SerializeField]
     private Sprite crossMark, circleMark;
     private Image contentImage;
@@ -14,20 +12,11 @@ public class BlockAppearance : MonoBehaviour
 
     private void OnEnable()
     {
-        block = GetComponentInParent<Block>();
         contentImage = GetComponent<Image>();
         ac = GetComponent<Animator>();
-
-        if (block != null)
-            block.OnCurrentContentChange.AddListener(ChangeContentAppearance);
     }
 
-    private void OnDestroy()
-    {
-        block.OnCurrentContentChange.RemoveListener(ChangeContentAppearance);
-    }
-
-    private void ChangeContentAppearance(MarkType type)
+    public void ChangeContentAppearance(MarkType type)
     {
         switch (type)
         {

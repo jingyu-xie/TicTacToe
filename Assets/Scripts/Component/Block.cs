@@ -13,38 +13,30 @@ public class Block : MonoBehaviour
 {
     [SerializeField]
     MarkType currentMark;
+
+    BlockAppearance appearance;
     private Button blockBtn;
-
-    [HideInInspector]
-    public UnityEvent<MarkType> OnCurrentContentChange;
-
-    private void OnEnable()
-    {
-        blockBtn = GetComponent<Button>();
-        blockBtn.onClick.AddListener(OnBlockClicked);
-    }
+    private int row, col;
 
     private void OnBlockClicked()
     {
-        CurrentContent = MarkType.Cross;
+        PlaceMark(MarkType.Circle);
     }
 
-    private void PlaceMark(MarkType type)
+    public void PlaceMark(MarkType type)
     {
-        CurrentContent = type;
+        currentMark = type;
+        blockBtn.enabled = false;
+        appearance.ChangeContentAppearance(currentMark);
     }
 
-    public MarkType CurrentContent
+    public void SetUpBlock(int row, int col)
     {
-        get { return currentMark; }
-        set { 
-            currentMark = value;
-            OnCurrentContentChange?.Invoke(currentMark);
-        }
-    }
+        this.row = row;
+        this.col = col;
 
-    private void OnValidate()
-    {
-        OnCurrentContentChange?.Invoke(currentMark);
+        appearance = GetComponentInChildren<BlockAppearance>();
+        blockBtn = GetComponent<Button>();
+        blockBtn.onClick.AddListener(OnBlockClicked);
     }
 }
