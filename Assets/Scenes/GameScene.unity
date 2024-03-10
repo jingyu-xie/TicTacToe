@@ -361,7 +361,7 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 300}
   m_Spacing: {x: 10, y: 10}
-  m_Constraint: 0
+  m_Constraint: 2
   m_ConstraintCount: 3
 --- !u!114 &1214676719
 MonoBehaviour:
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424f380d4349f174fa1f0610387934e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldSize: 3
+  boardSize: 3
   BlockPrefab: {fileID: 1626752546961544798, guid: 741229edc359c7343938107fcf0a6bd8, type: 3}
 --- !u!1 &1744777625
 GameObject:

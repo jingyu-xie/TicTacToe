@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80929579bc625e84fad1dee2c75f9ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crossMark: {fileID: 21300000, guid: 9aeb6e837c53d8342a46ee0a28e61dea, type: 3}
-  circleMark: {fileID: 21300000, guid: 892f6ad7750d44c439d8535a8f0fee01, type: 3}
+  crossMark: {fileID: 21300000, guid: 892f6ad7750d44c439d8535a8f0fee01, type: 3}
+  circleMark: {fileID: 21300000, guid: 9aeb6e837c53d8342a46ee0a28e61dea, type: 3}
 --- !u!114 &7941733765256617695
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-1881617788-0
         - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-925502876-0
         - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-1744777625-0
+        - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-2103327571-0
         values:
         - colorIndex: 0
           iconNameOrGuid: Camera Icon
@@ -28,3 +29,5 @@ MonoBehaviour:
           iconNameOrGuid: 
         - colorIndex: 0
           iconNameOrGuid: StandaloneInputModule Icon
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon

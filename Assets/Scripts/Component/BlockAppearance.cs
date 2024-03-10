@@ -14,11 +14,14 @@ public class BlockAppearance : MonoBehaviour
     {
         contentImage = GetComponent<Image>();
         ac = GetComponent<Animator>();
+        GetComponentInParent<Block>().OnMarkPlaced.AddListener(ChangeContentAppearance);
     }
 
-    public void ChangeContentAppearance(MarkType type)
+    public void ChangeContentAppearance()
     {
-        switch (type)
+        MarkType mark = GetComponentInParent<Block>().CurrentMark;
+
+        switch (mark)
         {
             case MarkType.Empty:
                 contentImage.sprite = null;
@@ -31,7 +34,7 @@ public class BlockAppearance : MonoBehaviour
                 break;
         }
 
-        if (type != MarkType.Empty)
+        if (mark != MarkType.Empty)
             ac.enabled = true;
     }
 }

@@ -14,20 +14,22 @@ public class Block : MonoBehaviour
     [SerializeField]
     MarkType currentMark;
 
-    BlockAppearance appearance;
     private Button blockBtn;
     private int row, col;
 
-    private void OnBlockClicked()
+    [HideInInspector]
+    public UnityEvent OnMarkPlaced;
+
+    public MarkType CurrentMark
     {
-        PlaceMark(MarkType.Circle);
+        get { return currentMark; }
     }
 
-    public void PlaceMark(MarkType type)
+    public void PlaceMark(MarkType mark)
     {
-        currentMark = type;
+        currentMark = mark;
         blockBtn.enabled = false;
-        appearance.ChangeContentAppearance(currentMark);
+        OnMarkPlaced?.Invoke();
     }
 
     public void SetUpBlock(int row, int col)
@@ -35,8 +37,7 @@ public class Block : MonoBehaviour
         this.row = row;
         this.col = col;
 
-        appearance = GetComponentInChildren<BlockAppearance>();
         blockBtn = GetComponent<Button>();
-        blockBtn.onClick.AddListener(OnBlockClicked);
+        blockBtn.onClick.AddListener(() => PlaceMark(MarkType.Circle));
     }
 }
