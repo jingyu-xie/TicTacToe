@@ -15,6 +15,7 @@ MonoBehaviour:
   sceneDatas_byGuid:
     keys:
     - cfea6766a8107cb488f6c97943b208e2
+    - 46cc7e05c60874349b8d0e955ab9997f
     values:
     - goDatas_byGlobalId:
         keys:
@@ -22,12 +23,33 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-925502876-0
         - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-1744777625-0
         - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-2103327571-0
+        - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-1684395728-0
+        - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-276118315-0
+        - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-1207385755-0
+        - globalObjectIdString: GlobalObjectId_V1-2-cfea6766a8107cb488f6c97943b208e2-1546672155-0
         values:
         - colorIndex: 0
           iconNameOrGuid: Camera Icon
         - colorIndex: 4
-          iconNameOrGuid: 
+          iconNameOrGuid: Canvas Icon
         - colorIndex: 0
           iconNameOrGuid: StandaloneInputModule Icon
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-46cc7e05c60874349b8d0e955ab9997f-107009983-0
+        - globalObjectIdString: GlobalObjectId_V1-2-46cc7e05c60874349b8d0e955ab9997f-1765738216-0
+        values:
+        - colorIndex: 4
+          iconNameOrGuid: Canvas Icon
         - colorIndex: 0
           iconNameOrGuid: cs Script Icon

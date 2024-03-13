@@ -14,13 +14,10 @@ public class BlockAppearance : MonoBehaviour
     {
         contentImage = GetComponent<Image>();
         ac = GetComponent<Animator>();
-        GetComponentInParent<Block>().OnMarkPlaced.AddListener(ChangeContentAppearance);
     }
 
-    public void ChangeContentAppearance()
+    public void ChangeContentAppearance(MarkType mark)
     {
-        MarkType mark = GetComponentInParent<Block>().CurrentMark;
-
         switch (mark)
         {
             case MarkType.Empty:

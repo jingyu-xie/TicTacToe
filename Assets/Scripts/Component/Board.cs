@@ -15,8 +15,9 @@ public class Board : Singleton<Board>
     [SerializeField]
     private Block[,] board;
 
-    public void Initialization()
+    public void InitializeBoard(int boardSize)
     {
+        this.boardSize = boardSize;
         board = new Block[boardSize, boardSize];
         DynamicallyChangeCells();
 
@@ -30,7 +31,7 @@ public class Board : Singleton<Board>
 
                 temp.name = row + "_" + col;
                 temp.transform.SetParent(transform, false);
-                board[row, col].OnMarkPlaced.AddListener(CheckWinner);
+                board[row, col].OnMarkPlaced.AddListener(OnActionFinishInformGM);
             }
         }
     }
@@ -40,15 +41,23 @@ public class Board : Singleton<Board>
         board[row, col].PlaceMark(mark);
     }
 
-    private void CheckWinner()
+    private void OnActionFinishInformGM()
+    {
+        if (CheckWinner())
+        {
+            // Inform GM
+        }
+    }
+
+    private bool CheckWinner()
     {
         if (CheckRowsAndCols() || CheckMainDiagonal(board) || CheckAntiDiagonal(board))
         {
-            // Inform GameManager
             Debug.Log("sb wins");
-            return;
+            return true;
         }
         Debug.Log("Nb win");
+        return false;
     }
 
     #region Check Board Status Functions
@@ -122,13 +131,10 @@ public class Board : Singleton<Board>
         int cellSize = 300;
         switch (boardSize)
         {
-            case <= 3 or > 10:
+            case < 3:
                 break;
-            case >= 4 and < 7:
+            case 4 or  5:
                 cellSize = 300 - 50 * (boardSize - 3);
-                break;
-            case >= 7 and <= 10:
-                cellSize = 125;
                 break;
         }
         GetComponent<GridLayoutGroup>().constraintCount = boardSize;
