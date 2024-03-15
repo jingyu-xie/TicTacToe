@@ -20,11 +20,18 @@ public class PopupWindow : MonoBehaviour
 
     private void OnEnable()
     {
-        backToMenuBtn.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
+        backToMenuBtn.onClick.AddListener(BackToStart);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         backToMenuBtn.onClick.RemoveAllListeners();
+    }
+
+    private void BackToStart()
+    {
+        GameManager.Instance.ResetGame();
+        UIManager.Instance.OpenPanel(PanelName.StartPanel);
+        gameObject.SetActive(false);
     }
 }

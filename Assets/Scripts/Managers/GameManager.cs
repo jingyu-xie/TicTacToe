@@ -29,6 +29,7 @@ public class GameManager : Singleton<GameManager>
     {
         board.InitializeBoard();
         // set up mode
+        this.mode = mode;
         switch (mode)
         {
             case GameMode.PVP:
@@ -118,6 +119,17 @@ public class GameManager : Singleton<GameManager>
         get { return goFirst; }
     }
     #endregion
+
+    public void ResetGame()
+    {
+        Time.timeScale = 1;
+        board.ResetBoard();
+        mode = GameMode.PVE;
+        goFirst = false;
+        currentPlayer = null;
+        playersList.Clear();
+        OnRoundChange.RemoveAllListeners();
+    }
 
     public void quitGame()
     {

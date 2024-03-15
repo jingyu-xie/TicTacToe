@@ -230,7 +230,7 @@ public class AIPlayer : MonoBehaviour
         if (aiMarksCnt == 3) score += 100;  // AI wins
         else if (opponentMarksCnt == 3) score -= 100;  // Opponent wins
         else if (aiMarksCnt == 2 && opponentMarksCnt == 0) score += 50;  // AI close to win
-        else if (opponentMarksCnt == 2 && aiMarksCnt == 0) score -= 50;  // Opponent close to win
+        else if (opponentMarksCnt == 2 && aiMarksCnt == 0) score -= 60;  // Opponent close to win
         else if (aiMarksCnt == 1 && opponentMarksCnt == 0) score += 10;
         else if (opponentMarksCnt == 1 && aiMarksCnt == 0) score -= 10;
 

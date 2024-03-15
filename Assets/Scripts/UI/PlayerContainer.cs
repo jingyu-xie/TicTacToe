@@ -17,7 +17,7 @@ public class PlayerContainer : MonoBehaviour
     [SerializeField]
     private Image backgroundImage;
 
-    private void Awake()
+    private void OnEnable()
     {
         GameManager.Instance.OnRoundChange.AddListener(UpdateBackgroundColor);
     }

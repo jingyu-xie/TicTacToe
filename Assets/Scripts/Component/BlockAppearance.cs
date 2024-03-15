@@ -34,4 +34,10 @@ public class BlockAppearance : MonoBehaviour
         if (mark != MarkType.Empty)
             ac.enabled = true;
     }
+
+    public void ResetBlockAppearance()
+    {
+        ac.enabled = false;
+        contentImage.sprite = null;
+    }
 }

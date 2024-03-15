@@ -14,6 +14,12 @@ public class Block : MonoBehaviour
     public UnityEvent OnPlacingMark, OnMarkPlaced;
 
     private Button blockBtn;
+    private BlockAppearance blockAppearance;
+
+    private void OnEnable()
+    {
+        blockAppearance = GetComponentInChildren<BlockAppearance>();
+    }
 
     public MarkType CurrentMark
     {
@@ -25,17 +31,15 @@ public class Block : MonoBehaviour
     public void PlaceMark(MarkType mark)
     {
         if (Board.Instance.IsPlacingMark) return;
-
-        currentMark = mark;
-        blockBtn.enabled = false;
-
         StartCoroutine(PlaceMarkCoroutine(mark));
     }
 
     private IEnumerator PlaceMarkCoroutine(MarkType mark)
     {
         OnPlacingMark?.Invoke();
-        GetComponentInChildren<BlockAppearance>().ChangeContentAppearance(currentMark);
+        currentMark = mark;
+        blockBtn.enabled = false;
+        blockAppearance.ChangeContentAppearance(mark);
         yield return new WaitForSeconds(1f);
         OnMarkPlaced?.Invoke();
     }
@@ -53,5 +57,7 @@ public class Block : MonoBehaviour
     public void ResetBlock()
     {
         currentMark = MarkType.Empty;
+        blockBtn.enabled = true;
+        blockAppearance.ResetBlockAppearance();
     }
 }

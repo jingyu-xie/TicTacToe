@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Board : Singleton<Board>
 {
+    bool isInitialized;
+
     [SerializeField]
     private int boardSize = 3;
 
@@ -22,6 +24,8 @@ public class Board : Singleton<Board>
 
     public void InitializeBoard()
     {
+        if (isInitialized) return;
+
         boardStatus = new Block[boardSize, boardSize];
         DynamicallyChangeCells();
 
@@ -39,6 +43,7 @@ public class Board : Singleton<Board>
                 boardStatus[row, col].OnMarkPlaced.AddListener(() => CheckWinner());
             }
         }
+        isInitialized = true;
     }
 
     public void PlaceMark(int row, int col, MarkType mark)
