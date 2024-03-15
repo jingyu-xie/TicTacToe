@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Board : Singleton<Board>
@@ -13,12 +14,15 @@ public class Board : Singleton<Board>
     GameObject BlockPrefab;
 
     [SerializeField]
-    private Block[,] board;
+    private Block[,] boardStatus;
 
-    public void InitializeBoard(int boardSize)
+    [HideInInspector]
+    public UnityEvent<BoardCondition> OnCheckFinished;
+    private bool isPlacingMark;
+
+    public void InitializeBoard()
     {
-        this.boardSize = boardSize;
-        board = new Block[boardSize, boardSize];
+        boardStatus = new Block[boardSize, boardSize];
         DynamicallyChangeCells();
 
         for (int row = 0; row < boardSize; row++)
@@ -27,47 +31,70 @@ public class Board : Singleton<Board>
             {
                 GameObject temp = Instantiate(BlockPrefab);
                 temp.GetComponent<Block>().SetUpBlock(row, col);
-                board[row, col] = temp.GetComponent<Block>();
+                boardStatus[row, col] = temp.GetComponent<Block>();
 
                 temp.name = row + "_" + col;
                 temp.transform.SetParent(transform, false);
-                board[row, col].OnMarkPlaced.AddListener(OnActionFinishInformGM);
+                boardStatus[row, col].OnPlacingMark.AddListener(() => isPlacingMark = true) ;
+                boardStatus[row, col].OnMarkPlaced.AddListener(() => CheckWinner());
             }
         }
     }
 
     public void PlaceMark(int row, int col, MarkType mark)
     {
-        board[row, col].PlaceMark(mark);
+        boardStatus[row, col].PlaceMark(mark);
     }
 
-    private void OnActionFinishInformGM()
+    private void CheckWinner()
     {
-        if (CheckWinner())
+        isPlacingMark = false;
+
+        if (CheckRowsAndCols() || CheckMainDiagonal(boardStatus) || CheckAntiDiagonal(boardStatus))
         {
-            // Inform GM
+            OnCheckFinished?.Invoke(BoardCondition.HasWinner);
+            return;
+        }
+
+        if (CheckBoardFull())
+        {
+            OnCheckFinished?.Invoke(BoardCondition.Tie);
+            return;
+        }
+        OnCheckFinished?.Invoke(BoardCondition.NoWinner);
+    }
+
+    public void ResetBoard()
+    {
+        for (int row = 0; row < boardSize; row++)
+        {
+            for (int col = 0; col < boardSize; col++)
+            {
+                boardStatus[row, col].ResetBlock();
+            }
         }
     }
 
-    private bool CheckWinner()
+    #region Getters
+
+    public bool IsPlacingMark { get {  return isPlacingMark; } }
+
+    public Block[,] BoardStatus
     {
-        if (CheckRowsAndCols() || CheckMainDiagonal(board) || CheckAntiDiagonal(board))
-        {
-            Debug.Log("sb wins");
-            return true;
-        }
-        Debug.Log("Nb win");
-        return false;
+        get { return boardStatus; }
     }
+
+    public int BoardSize { get { return boardSize; } }
+    #endregion
 
     #region Check Board Status Functions
     private bool CheckRowsAndCols()
     {
         for (int idx = 0; idx < boardSize; idx++)
         {
-            if (CheckRow(board, idx))
+            if (CheckRow(boardStatus, idx))
                 return true;
-            if (CheckCol(board, idx))
+            if (CheckCol(boardStatus, idx))
                 return true;
         }
         return false;
@@ -80,7 +107,7 @@ public class Board : Singleton<Board>
         {
             marksArr[i] = board[rowNum, i].CurrentMark;
         }
-        return CheckAllElementEqual(marksArr);
+        return CheckLine(marksArr);
     }
 
     private bool CheckCol(Block[,] board, int colNum)
@@ -90,7 +117,7 @@ public class Board : Singleton<Board>
         {
             marksArr[i] = board[i, colNum].CurrentMark;
         }
-        return CheckAllElementEqual(marksArr);
+        return CheckLine(marksArr);
     }
 
     private bool CheckMainDiagonal(Block[,] board)
@@ -100,7 +127,7 @@ public class Board : Singleton<Board>
         {
             marksArr[i] = board[i, i].CurrentMark;
         }
-        return CheckAllElementEqual(marksArr);
+        return CheckLine(marksArr);
     }
 
     private bool CheckAntiDiagonal(Block[,] board)
@@ -113,13 +140,20 @@ public class Board : Singleton<Board>
         {
             marksArr[i] = board[row_cnt++, col_cnt--].CurrentMark;
         }
-        return CheckAllElementEqual(marksArr);
+        return CheckLine(marksArr);
     }
 
-    private bool CheckAllElementEqual(MarkType[] marksArr)
+    private bool CheckLine(MarkType[] marksArr)
     {
         MarkType firstMark = marksArr[0];
         bool result = marksArr.Skip(1).All(mark => (mark != MarkType.Empty && mark == firstMark));
+        return result;
+    }
+
+    public bool CheckBoardFull()
+    {
+        var flattenedArr = boardStatus.Cast<Block>().ToArray();
+        bool result = flattenedArr.All(block => (block.CurrentMark != MarkType.Empty));
         return result;
     }
 
@@ -148,7 +182,7 @@ public class Board : Singleton<Board>
         {
             for (int col = 0; col < boardSize; col++)
             {
-                Debug.Log(row + "_" + col + ": " + board[row, col].CurrentMark.ToString());
+                Debug.Log(row + "_" + col + ": " + boardStatus[row, col].CurrentMark.ToString());
             }
         }
     }

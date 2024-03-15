@@ -12,3 +12,8 @@ public enum PanelName
 {
     StartPanel, SettingPanel, GamePanel
 }
+
+public enum BoardCondition
+{
+    HasWinner, NoWinner, Tie
+}

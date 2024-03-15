@@ -13,6 +13,11 @@ public class Player
         this.playerMark = playerMark;
     }
 
+    public string PlayerID 
+    { 
+        get { return playerID; }
+    }
+
     public MarkType PlayerMark
     {
         get { return playerMark; }

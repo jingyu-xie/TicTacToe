@@ -11,17 +11,21 @@ public class Block : MonoBehaviour
     private int row, col;
 
     [HideInInspector]
-    public UnityEvent OnMarkPlaced;
+    public UnityEvent OnPlacingMark, OnMarkPlaced;
 
     private Button blockBtn;
 
     public MarkType CurrentMark
     {
         get { return currentMark; }
+        set { currentMark = value; }
     }
 
+    #region Place Mark Functions
     public void PlaceMark(MarkType mark)
     {
+        if (Board.Instance.IsPlacingMark) return;
+
         currentMark = mark;
         blockBtn.enabled = false;
 
@@ -30,10 +34,12 @@ public class Block : MonoBehaviour
 
     private IEnumerator PlaceMarkCoroutine(MarkType mark)
     {
+        OnPlacingMark?.Invoke();
         GetComponentInChildren<BlockAppearance>().ChangeContentAppearance(currentMark);
         yield return new WaitForSeconds(1f);
         OnMarkPlaced?.Invoke();
     }
+    #endregion
 
     public void SetUpBlock(int row, int col)
     {
@@ -41,6 +47,11 @@ public class Block : MonoBehaviour
         this.col = col;
 
         blockBtn = GetComponent<Button>();
-        blockBtn.onClick.AddListener(() => PlaceMark(MarkType.Circle));
+        blockBtn.onClick.AddListener(() => PlaceMark(GameManager.Instance.getCurrentPlayerMark()));
+    }
+
+    public void ResetBlock()
+    {
+        currentMark = MarkType.Empty;
     }
 }
