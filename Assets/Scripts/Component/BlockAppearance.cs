@@ -39,5 +39,11 @@ public class BlockAppearance : MonoBehaviour
     {
         ac.enabled = false;
         contentImage.sprite = null;
+        contentImage.fillAmount = 0;
+
+        // reset alpha
+        Color tempColor = contentImage.color;
+        tempColor.a = 0;
+        contentImage.color = tempColor;
     }
 }

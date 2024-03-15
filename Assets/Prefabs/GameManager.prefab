@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e001cb13ad4f51d4690f14bd63f710cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  board: {fileID: 0}
+  AIPlayer: {fileID: 1468848971566972016, guid: bc5c2a47de3ed6848b2c586ce9471c1e, type: 3}
+  OnRoundChange:
+    m_PersistentCalls:
+      m_Calls: []

@@ -836,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &276118316
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2422,7 +2422,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1730, y: -10}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1214676718
 MonoBehaviour:
@@ -2958,7 +2958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1546672156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4426,10 +4426,6 @@ PrefabInstance:
       propertyPath: board
       value: 
       objectReference: {fileID: 1214676720}
-    - target: {fileID: 3504777929378846569, guid: 730317d2a1ce3e941a800bcfa1d6291c, type: 3}
-      propertyPath: AIPlayer
-      value: 
-      objectReference: {fileID: 1468848971566972016, guid: bc5c2a47de3ed6848b2c586ce9471c1e, type: 3}
     - target: {fileID: 3732935827004129882, guid: 730317d2a1ce3e941a800bcfa1d6291c, type: 3}
       propertyPath: m_Name
       value: GameManager
